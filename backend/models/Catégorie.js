@@ -6,6 +6,7 @@ const categorieSchema = new mongoose.Schema({
     dateCreation: { type: Date, default: Date.now },
     dateModification: { type: Date },
     icône: { type: String },
+    taches: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tache' }]
 });
 
 module.exports = mongoose.model('Categorie', categorieSchema);
