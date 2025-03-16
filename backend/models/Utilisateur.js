@@ -14,7 +14,14 @@ utilisateurSchema.pre("save", async function (next) {
   function(next) {
    if (!this.isModified("motDePasse"))
       return next();
-   this.motDpasse = await bcrypt.hash(this.motDePasse, 10);
+   this.motDePasse = await bcrypt.hash(this.motDePasse, 10);
+  }
+});
+
+// Mettre à jour la date de dernière connexion avant la sauvegarde 
+utilisateurSchema.pre("save", function (next) {
+  if (this.isModified("dernierConnexion")){
+    this.dernierConnexion = Date.now();
   }
 });
 
