@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
-const utilisateurRoutes = require("./routes/utilisateurs").default;
+const Utilisateur = require("../models/utilisateur");
 
 
 // Schémas de validation Joi

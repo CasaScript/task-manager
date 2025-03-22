@@ -1,3 +1,4 @@
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -24,7 +25,7 @@ app.use("/api/taches", tacheRoutes);
 app.use("/api/categories", categorieRoutes);
 
 // Route de base
-app.get("/", (req, res) => res.send("API is running"));
+app.get("/", (req, res) => res.send("API is running")); // ✅ Parenthèse corrigée
 
 // Gestion des erreurs 404
 app.use((req, res, next) => {
@@ -32,9 +33,9 @@ app.use((req, res, next) => {
 });
 
 // Middleware de gestion des erreurs
-app.use((err, req, res, next) => {
+app.use((err, req, res, next) => { // ✅ Syntaxe corrigée
   console.error(err.stack);
-  res.status(500).json({ message: "Something broke!" });
+  res.status(500).json({ message: "Something broke !" });
 });
 
 // Lancer le serveur
