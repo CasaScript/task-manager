@@ -9,4 +9,11 @@ const categorieSchema = new mongoose.Schema({
     taches: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tache' }]
 });
 
+// Index pour optimiser les recherches
+categorieSchema.index({ dateCreation: 1 });
+categorieSchema.index({ dateModification: 1 });
+
+
 module.exports = mongoose.model('Categorie', categorieSchema);
+
+

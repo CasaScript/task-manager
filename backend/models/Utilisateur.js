@@ -30,5 +30,7 @@ utilisateurSchema.methods.toJSON = function () {
   return userObject;
 };
 
+// Création d'index pour optimiser les recherches
+utilisateurSchema.index({ email: 1 });
 
 module.exports = mongoose.model("Utilisateur", utilisateurSchema); 

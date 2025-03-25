@@ -27,4 +27,7 @@ const tacheSchema = new mongoose.Schema({
    dateModification: { type: Date }
 });
 
+// Index composé pour les recherches fréquentes
+tacheSchema.index({ utilisateur: 1, statut: 1, dateEcheance: 1 });
+
 module.exports = mongoose.model("Tache", tacheSchema);

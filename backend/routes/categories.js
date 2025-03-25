@@ -1,16 +1,34 @@
-
-const express = require ('express');
+const express = require('express');
 const router = express.Router();
-
-// Import du modèle Categorie et, si nécessaire, du modèle Tache pour les relations
+const Joi = require('joi');
 const Categorie = require('../models/Catégorie');
-const Tache = require('../models/Tâche'); // Optionnel selon votre approche
+const Tache = require('../models/Tâche'); 
+
+// Schéma de validation Joi
+const categorieSchema = Joi.object({
+  nom: Joi.string().min(3).max(30).required(),
+  description: Joi.string().max(255),
+});
+
+// Middleware de validation
+const validateCategorie = async (req, res, next) => {
+  try {
+    await categorieSchema.validateAsync(req.body, { abortEarly: false });
+    next();
+  } catch (error) {
+    const errors = error.details.map(detail => ({
+      field: detail.context.key,
+      message: detail.message
+    }));
+    return res.status(400).json({ errors });
+  }
+};
 
 /**
  * POST /api/categories
  * Création d'une nouvelle catégorie
  */
-router.post('/', async (req, res) => {
+router.post('/', validateCategorie, async (req, res) => {
   try {
     const categorie = new Categorie(req.body);
     await categorie.save();
@@ -53,7 +71,7 @@ router.get('/:id', async (req, res) => {
  * PUT /api/categories/:id
  * Mise à jour d'une catégorie
  */
-router.put('/:id', async (req, res) => {
+router.put('/:id', validateCategorie, async (req, res) => {
   try {
     const categorie = await Categorie.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!categorie) {
@@ -84,8 +102,6 @@ router.delete('/:id', async (req, res) => {
 /**
  * GET /api/categories/:id/taches
  * Récupération des tâches d'une catégorie.
- * Ici, on utilise populate() sur le champ 'taches' de la catégorie.
- * (Option : vous pouvez également interroger directement le modèle Tache si besoin.)
  */
 router.get('/:id/taches', async (req, res) => {
   try {
