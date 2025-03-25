@@ -20,6 +20,7 @@ utilisateurSchema.pre("save", function (next) {
   if (this.isModified("dernierConnexion")){
     this.dernierConnexion = Date.now();
   }
+  next();
 });
 
 // Masquer le mot de passe dans les réponses JSON

@@ -7,6 +7,7 @@
     "main": "server.js",
   
     "scripts": {
+        "insert": "node insert.js",
   
       
     "start": "node server.js",
