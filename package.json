@@ -3,15 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.3",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
+    "concurrently": "^9.1.2",
     "cra-template": "1.2.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "helmet": "^8.1.0",
     "joi": "^17.13.3",
-    "module": "^1.1.0",
     "mongoose": "^8.13.0",
+    "morgan": "^1.10.0",
     "nodemon": "^3.1.9",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -19,13 +22,19 @@
     "react-router-dom": "^7.1.2",
     "react-scripts": "^5.0.1",
     "redux": "^5.0.1",
-    "web-vitals": "^2.1.0"
+    "tailwindcss": "^4.1.3",
+    "web-vitals": "^2.1.0",
+    "webpack": "^5.99.5",
+    "webpack-cli": "^6.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start:backend": "node server.js",
+    "dev": "concurrently \"nodemon server.js\" \"npm start\"",
+    "proxy": "http://localhost:5000"
   },
   "eslintConfig": {
     "extends": [
